@@ -12,13 +12,12 @@ const appLogger = buildLogger('APP')
 import { mwRequestId } from './middlewares/request-id'
 import { mwRequestTrace } from './middlewares/request-trace'
 import mwServ from 'koa-static'
+import { mwRouterWeb } from './middlewares/router-web'
 
 app.use(mwRequestId)
 app.use(mwRequestTrace)
 app.use(mwServ(__dirname + '/../static'))
-app.use(async (ctx) => {
-  ctx.body = "koa app."
-})
+app.use(mwRouterWeb)
 
 // サーバ起動
 const port = process.env.PORT || 443
