@@ -60,3 +60,18 @@ const port = process.env.PORT || 443
 app.listen(port)
 $ npm run 8443    # Ctrl-C で停止。http://localhost:8443 でアクセス
 ```
+
+## HTTP/2 導入
+
+- [Koaで構築したサーバをHTTPS/HTTP2化する](https://qiita.com/y_fujieda/items/9998f28e702dc7c84473)
+
+```bash
+$ mkdir ssc    # ssc = Self-signed certificate
+$ echo "ssc/*" >> .gitignore
+$ openssl genrsa 2048 > ssc/server.key
+$ openssl req -new -sha256 -key ssc/server.key -out ssc/server.csr    # 全て Enter 押下
+$ openssl x509 -in ssc/server.csr -out ssc/server.crt -req -signkey ssc/server.key -sha256 -days 3650
+$ npm i -S http2
+$ vi src/index.ts    # HTTP/2 有効化
+$ npm run 8443    # Ctrl-C で停止。https://localhost:8443 でアクセス
+```
