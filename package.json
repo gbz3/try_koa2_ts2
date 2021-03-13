@@ -21,6 +21,7 @@
   "homepage": "https://github.com/gbz3/try_koa2_ts2#readme",
   "devDependencies": {
     "@types/koa": "^2.13.1",
+    "@types/koa-static": "^4.0.1",
     "@types/node": "^14.14.34",
     "@types/uuid": "^8.3.0",
     "ts-node": "^9.1.1",
@@ -29,6 +30,7 @@
   "dependencies": {
     "http2": "^3.3.7",
     "koa": "^2.13.1",
+    "koa-static": "^5.0.0",
     "log4js": "^6.3.0",
     "uuid": "^8.3.2"
   }
