@@ -11,5 +11,5 @@ export const buildLogger = (requestId: string) => log4js.configure({
       },
     },
   },
-  categories: { default: { appenders: ['console'], level: 'trace' } }
+  categories: { default: { appenders: ['console'], level: 'debug' } }
 }).getLogger()

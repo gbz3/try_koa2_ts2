@@ -9,6 +9,11 @@ const app = new Koa()
 const appLogger = buildLogger('APP')
 
 // ミドルウェア設定
+import { mwRequestId } from './middlewares/request-id'
+import { mwRequestTrace } from './middlewares/request-trace'
+
+app.use(mwRequestId)
+app.use(mwRequestTrace)
 app.use(async (ctx) => {
   ctx.body = "koa app."
 })
