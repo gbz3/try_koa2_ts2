@@ -85,3 +85,11 @@ $ npm run 8443    # Ctrl-C で停止。https://localhost:8443 でアクセス
 $ npm i -D webpack webpack-cli
 $ echo "static/main.js" >> .gitignore
 ```
+
+## フロントエンドを Typescript 化
+
+- [最新版TypeScript+webpack 5の環境構築まとめ](https://ics.media/entry/16329/)
+
+```bash
+$ npm i -D ts-loader
+```
