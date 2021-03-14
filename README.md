@@ -93,3 +93,13 @@ $ echo "static/main.js" >> .gitignore
 ```bash
 $ npm i -D ts-loader
 ```
+
+## Bootstrap4.6 導入
+
+- [最新版で学ぶwebpack 5入門 Bootstrapをバンドルする方法](https://ics.media/entry/17749/)
+
+```bash
+$ npm i -S bootstrap jquery popper.js
+$ npm i -D style-loader css-loader
+$ echo "static/main.js.map" >> .gitignore
+```

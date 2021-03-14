@@ -25,6 +25,8 @@
     "@types/koa__router": "^8.0.4",
     "@types/node": "^14.14.34",
     "@types/uuid": "^8.3.0",
+    "css-loader": "^5.1.2",
+    "style-loader": "^2.0.0",
     "ts-loader": "^8.0.18",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3",
@@ -33,11 +35,14 @@
   },
   "dependencies": {
     "@koa/router": "^10.0.0",
+    "bootstrap": "^4.6.0",
     "http2": "^3.3.7",
+    "jquery": "^3.6.0",
     "koa": "^2.13.1",
     "koa-static": "^5.0.0",
     "koa-views": "^7.0.0",
     "log4js": "^6.3.0",
+    "popper.js": "^1.16.1",
     "pug": "^3.0.2",
     "uuid": "^8.3.2"
   }

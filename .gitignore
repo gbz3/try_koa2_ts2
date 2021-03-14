@@ -104,3 +104,4 @@ dist
 .tern-port
 ssc/*
 static/main.js
+static/main.js.map
