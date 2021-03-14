@@ -105,3 +105,5 @@ dist
 ssc/*
 static/main.js
 static/main.js.map
+static/style.css
+static/style.css.map

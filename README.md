@@ -103,3 +103,13 @@ $ npm i -S bootstrap jquery popper.js
 $ npm i -D style-loader css-loader
 $ echo "static/main.js.map" >> .gitignore
 ```
+
+## Bootstrap4.6/Sass 導入
+
+- [最新版で学ぶwebpack 5入門 Bootstrapをバンドルする方法（実戦向きのBoostrap+webpack構成）](https://ics.media/entry/17749/)
+
+```bash
+$ npm i -D sass sass-loader postcss postcss-loader autoprefixer mini-css-extract-plugin
+$ echo "static/style.css" >> .gitignore
+$ echo "static/style.css.map" >> .gitignore
+```
