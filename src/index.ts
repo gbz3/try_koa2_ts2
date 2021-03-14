@@ -1,12 +1,14 @@
 import Koa from 'koa'
 import http2 from 'http2'
 import fs from 'fs'
+import views from 'koa-views'
 
 import { buildLogger } from './modules/logger'
 
 // Koa2 サーバ初期設定
 const app = new Koa()
 const appLogger = buildLogger('APP')
+app.context.render = views(__dirname + '/views', { autoRender: true, extension: 'pug' })()
 
 // ミドルウェア設定
 import { mwRequestId } from './middlewares/request-id'
