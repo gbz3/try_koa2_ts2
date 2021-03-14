@@ -16,4 +16,9 @@ html(lang="ja")
     button.btn.btn-light(type='button') Light
     button.btn.btn-dark(type='button') Dark
     button.btn.btn-link(type='button') Link
+    .input-group.p-2 
+      .input-group-prepend 
+        span.input-group-text My-ID/Peer-ID
+      input.form-control#my-id(type='text' placeholder='My-ID')
+      input.form-control#peer-id(type='text' placeholder='Peer-ID')
   script(src="main.js") 
