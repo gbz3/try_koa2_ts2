@@ -13,6 +13,15 @@ const referenceTo = <T extends HTMLElement>(id: string) => {
 
 const myId = referenceTo<HTMLInputElement>('my-id')
 const peerId = referenceTo<HTMLInputElement>('peer-id')
+const v01 = referenceTo<HTMLVideoElement>('v01')
+const v02 = referenceTo<HTMLVideoElement>('v02')
+
+// see: https://github.com/microsoft/TypeScript/issues/33232
+declare global {
+  interface MediaDevices {
+    getDisplayMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>
+  }
+}
 
 // 初期化
 ;(async () => {
@@ -21,5 +30,9 @@ const peerId = referenceTo<HTMLInputElement>('peer-id')
   const peer = new Peer({ key: await skywayKeyRes.text(), debug: 3 })
   // Skyway 接続成功
   peer.on('open', () => myId.value = peer.id)
+
+  // 映像表示
+  v01.srcObject = await navigator.mediaDevices.getDisplayMedia({ video: true })
+  v02.srcObject = await navigator.mediaDevices.getDisplayMedia({ video: true })
 
 })()
