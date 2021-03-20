@@ -21,7 +21,6 @@ html(lang="ja")
         span.input-group-text My-ID/Peer-ID
       input.form-control#my-id(type='text' placeholder='My-ID')
       input.form-control#peer-id(type='text' placeholder='Peer-ID')
-    .collapse#video-area
-      video#v01(width='300px' autoplay muted playsinline)
-      video#v02(width='300px' autoplay muted playsinline)
+    .collapse.show#video-area
+      button.btn.btn-primary#append-display(type='button') メディア追加
   script(src="main.js") 

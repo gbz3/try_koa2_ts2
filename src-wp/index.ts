@@ -1,5 +1,6 @@
 import { hello } from './modules/sub'
 import Peer from 'skyway-js'
+import { v4 } from 'uuid'
 import 'bootstrap'
 import './index.scss'
 
@@ -13,8 +14,8 @@ const referenceTo = <T extends HTMLElement>(id: string) => {
 
 const myId = referenceTo<HTMLInputElement>('my-id')
 const peerId = referenceTo<HTMLInputElement>('peer-id')
-const v01 = referenceTo<HTMLVideoElement>('v01')
-const v02 = referenceTo<HTMLVideoElement>('v02')
+const videoArea = referenceTo<HTMLVideoElement>('video-area')
+const appendDisplay = referenceTo<HTMLVideoElement>('append-display')
 
 // see: https://github.com/microsoft/TypeScript/issues/33232
 declare global {
@@ -31,8 +32,11 @@ declare global {
   // Skyway 接続成功
   peer.on('open', () => myId.value = peer.id)
 
-  // 映像表示
-  v01.srcObject = await navigator.mediaDevices.getDisplayMedia({ video: true })
-  v02.srcObject = await navigator.mediaDevices.getDisplayMedia({ video: true })
+  // 指定したメディアを video タグで表示
+  appendDisplay.onclick = async () => {
+    const id = v4()
+    videoArea.insertAdjacentHTML('beforeend', `<video id="${id}" width="300px" autoplay muted playsinline></video>`)
+    referenceTo<HTMLVideoElement>(id).srcObject = await navigator.mediaDevices.getDisplayMedia({ video: true })
+  }
 
 })()
