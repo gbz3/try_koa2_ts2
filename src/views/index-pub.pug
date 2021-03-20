@@ -7,7 +7,7 @@ html(lang="ja")
     title Index
   body
     h1 Public
-    button.btn.btn-primary(type='button') Primary
+    button.btn.btn-primary(type='button' data-toggle='collapse' data-target='#video-area') Primary
     button.btn.btn-secondary(type='button') Secondary
     button.btn.btn-success(type='button') Success
     button.btn.btn-danger(type='button') Danger
@@ -21,6 +21,7 @@ html(lang="ja")
         span.input-group-text My-ID/Peer-ID
       input.form-control#my-id(type='text' placeholder='My-ID')
       input.form-control#peer-id(type='text' placeholder='Peer-ID')
-    video#v01(width='300px' autoplay muted playsinline)
-    video#v02(width='300px' autoplay muted playsinline)
+    .collapse#video-area
+      video#v01(width='300px' autoplay muted playsinline)
+      video#v02(width='300px' autoplay muted playsinline)
   script(src="main.js") 
