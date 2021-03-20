@@ -35,7 +35,7 @@ declare global {
   // 指定したメディアを video タグで表示
   appendDisplay.onclick = async () => {
     const id = v4()
-    videoArea.insertAdjacentHTML('beforeend', `<video id="${id}" width="300px" autoplay muted playsinline></video>`)
+    videoArea.insertAdjacentHTML('beforeend', `<video id="${id}" class="embed-responsive-item" autoplay muted playsinline></video>`)
     referenceTo<HTMLVideoElement>(id).srcObject = await navigator.mediaDevices.getDisplayMedia({ video: true })
   }
 
