@@ -14,7 +14,7 @@ const referenceTo = <T extends HTMLElement>(id: string) => {
 
 const myId = referenceTo<HTMLInputElement>('my-id')
 const peerId = referenceTo<HTMLInputElement>('peer-id')
-const videoArea = referenceTo<HTMLVideoElement>('video-area')
+const videoArea = referenceTo<HTMLDivElement>('video-area')
 const appendDisplay = referenceTo<HTMLVideoElement>('append-display')
 
 // see: https://github.com/microsoft/TypeScript/issues/33232
@@ -35,12 +35,18 @@ declare global {
   // 指定したメディアを video タグで表示
   appendDisplay.onclick = async () => {
     const id = v4()
-    const video = `<video id="${id}" class="embed-responsive-item" autoplay muted playsinline></video>`
+    const video = `<video id="${id}-v" class="embed-responsive-item" autoplay muted playsinline></video>`
     const embed = `<div class="embed-responsive embed-responsive-16by9">${video}</div>`
-    const close = `<button id="${id}-close" type="button" class="close"><span>&times;</span></button>`
-    videoArea.insertAdjacentHTML('beforeend', `<div class="col-3">${close}${embed}</div>`)
-    referenceTo<HTMLVideoElement>(id).srcObject = await navigator.mediaDevices.getDisplayMedia({ video: true })
-    referenceTo<HTMLButtonElement>(`${id}-close`).onclick = () => {
+    const close = `<button id="${id}-x" type="button" class="close"><span>&times;</span></button>`
+    videoArea.insertAdjacentHTML('beforeend', `<div id="${id}" class="col-3">${close}${embed}</div>`)
+    const element = referenceTo<HTMLDivElement>(id)
+    const v = referenceTo<HTMLVideoElement>(`${id}-v`)
+    const mStream = await navigator.mediaDevices.getDisplayMedia({ video: true })
+    if (v) v.srcObject = mStream
+    const x = referenceTo<HTMLButtonElement>(`${id}-x`)
+    if (x) x.onclick = () => {
+      mStream.getTracks().forEach(track => track.stop())
+      element.remove()
       console.log(`clicked.`)
     }
   }
