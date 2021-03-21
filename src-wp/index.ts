@@ -37,8 +37,12 @@ declare global {
     const id = v4()
     const video = `<video id="${id}" class="embed-responsive-item" autoplay muted playsinline></video>`
     const embed = `<div class="embed-responsive embed-responsive-16by9">${video}</div>`
-    videoArea.insertAdjacentHTML('beforeend', `<div class="col-3">${embed}</div>`)
+    const close = `<button id="${id}-close" type="button" class="close"><span>&times;</span></button>`
+    videoArea.insertAdjacentHTML('beforeend', `<div class="col-3">${close}${embed}</div>`)
     referenceTo<HTMLVideoElement>(id).srcObject = await navigator.mediaDevices.getDisplayMedia({ video: true })
+    referenceTo<HTMLButtonElement>(`${id}-close`).onclick = () => {
+      console.log(`clicked.`)
+    }
   }
 
 })()
