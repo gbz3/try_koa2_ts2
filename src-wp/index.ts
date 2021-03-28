@@ -48,21 +48,23 @@ async function insertVideo(parent: HTMLDivElement, mStream: MediaStream) {
   const close = `<button id="${mStream.id}-x" type="button" class="close"><span>&times;</span></button>`
   parent.insertAdjacentHTML('beforeend', `<div id="${mStream.id}" class="col${isFocused? '': '-3'}">${close}${embed}</div>`)
   const child = referenceTo<HTMLDivElement>(mStream.id)
+  const EVENT_CLOSE_VIDEO = 'closeVideo'
+  child.addEventListener(EVENT_CLOSE_VIDEO, async () => {
+    console.log('handle closeVideo event.')
+    mStream.getTracks().forEach(track => track.stop())
+    child.remove()
+  })
   const v = referenceTo<HTMLVideoElement>(`${mStream.id}-v`)
-  const x = referenceTo<HTMLButtonElement>(`${mStream.id}-x`)
   if (v) {
     v.srcObject = mStream
     v.onclick = () => {
       if (!isFocused) {
         console.log(`v clicked.`)
-        child.remove()
-        insertVideo(focusArea, mStream)
+        focusArea.childNodes.forEach(e => e.dispatchEvent(new Event(EVENT_CLOSE_VIDEO, { bubbles: true })))
+        insertVideo(focusArea, mStream.clone())
       }
     }
   }
-  if (x) x.onclick = () => {
-    console.log(`x clicked.`)
-    mStream.getTracks().forEach(track => track.stop())
-    child.remove()
-  }
+  const x = referenceTo<HTMLButtonElement>(`${mStream.id}-x`)
+  if (x) x.onclick = () => x.dispatchEvent(new Event(EVENT_CLOSE_VIDEO, { bubbles: true }))
 }
