@@ -15,7 +15,7 @@ const referenceTo = <T extends HTMLElement>(id: string) => {
 const myId = referenceTo<HTMLInputElement>('my-id')
 const peerId = referenceTo<HTMLInputElement>('peer-id')
 const videoArea = referenceTo<HTMLDivElement>('video-area')
-const zoomArea = referenceTo<HTMLDivElement>('zoom-area')
+const focusArea = referenceTo<HTMLDivElement>('focus-area')
 const appendDisplay = referenceTo<HTMLVideoElement>('append-display')
 
 // see: https://github.com/microsoft/TypeScript/issues/33232
@@ -42,22 +42,27 @@ declare global {
 })()
 
 async function insertVideo(parent: HTMLDivElement, mStream: MediaStream) {
+  const isFocused = parent.id === 'focus-area'
   const video = `<video id="${mStream.id}-v" class="embed-responsive-item" autoplay muted playsinline></video>`
   const embed = `<div class="embed-responsive embed-responsive-16by9">${video}</div>`
   const close = `<button id="${mStream.id}-x" type="button" class="close"><span>&times;</span></button>`
-  parent.insertAdjacentHTML('beforeend', `<div id="${mStream.id}" class="col-3">${close}${embed}</div>`)
+  parent.insertAdjacentHTML('beforeend', `<div id="${mStream.id}" class="col${isFocused? '': '-3'}">${close}${embed}</div>`)
   const child = referenceTo<HTMLDivElement>(mStream.id)
   const v = referenceTo<HTMLVideoElement>(`${mStream.id}-v`)
+  const x = referenceTo<HTMLButtonElement>(`${mStream.id}-x`)
   if (v) {
     v.srcObject = mStream
     v.onclick = () => {
-      console.log(`clicked.`)
+      if (!isFocused) {
+        console.log(`v clicked.`)
+        child.remove()
+        insertVideo(focusArea, mStream)
+      }
     }
   }
-  const x = referenceTo<HTMLButtonElement>(`${mStream.id}-x`)
   if (x) x.onclick = () => {
+    console.log(`x clicked.`)
     mStream.getTracks().forEach(track => track.stop())
     child.remove()
-    console.log(`clicked.`)
   }
 }
